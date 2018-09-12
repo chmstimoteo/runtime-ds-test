@@ -1,15 +1,15 @@
-# Recommendation System with TensorFlow Estimators
+# Demand Prediction with TensorFlow Keras API
 
-Google Cloud MLE for inference and prediction of movie ratings.
+Google Cloud MLE for demand prediction.
 
 - - -
 
-This repository contains the code for building a movie recommender engine wrapped with the TensorFlow High-level Estimator API and scripts for performing model inference and prediction on Google Cloud Machine Learning Engine using distributed training and hyper-parameter tuning.
+This repository contains the code for building a demand prediction solution wrapped with the TensorFlow High-level Keras API and scripts for performing model inference and prediction on Google Cloud Machine Learning Engine using distributed training and hyper-parameter tuning.
 
 Before running the bash scripts in this folder, run `chmod -R +x scripts` to recursively set permissions for the script subfolder. Also, use `source ..` to run the bash scripts, so that the environment variables are set in the shell instance.
 
 ## Download the data
-The transofrmed dataset for training and evaluation are stored on the Google Cloud Bucket `gs://eds-sandbox-186722-recommendation-system-bucket`
+The transofrmed dataset for training and evaluation are stored on the Google Cloud Bucket `gs://<BUCKET_NAME>`
 
 ## Distributed Training
 Run the distributed training code on the cloud by executing the following bash script,
@@ -30,7 +30,7 @@ source ./scripts/deploy_predict_cloud_job.sh
 ```
 
 ## Predict using Python API
-To predict using the Python API for Cloud MLE, run the script below. However, a service account `service-account.json`, (which will be made available on request) is required to run this file.
+To predict using the Python API for Cloud MLE, run the script below. However, a service account `service-account.json` is required to run this script.
 ```
 source ./scripts/predict_ratings.sh
 ```

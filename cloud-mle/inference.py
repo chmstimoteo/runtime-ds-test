@@ -4,8 +4,8 @@ import google.auth
 import argparse
 
 
-GCP_PROJECT = 'eds-sandbox-186722'  # Change to GCP project where the Cloud ML Engine model is deployed
-CMLE_MODEL_NAME = 'recommender_system'  # Change to the deployed Cloud ML Engine model
+GCP_PROJECT = ''  # Change to GCP project where the Cloud ML Engine model is deployed
+CMLE_MODEL_NAME = ''  # Change to the deployed Cloud ML Engine model
 CMLE_MODEL_VERSION = None  # If None, the default version will be used
 scopes = ['https://www.googleapis.com/auth/cloud-platform']
 

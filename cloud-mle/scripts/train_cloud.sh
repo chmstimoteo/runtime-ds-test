@@ -18,7 +18,25 @@ MODEL_DIR_DIST=gs://$BUCKET/models-dist/$JOB_NAME
 TEST_JSON=gs://$BUCKET/data/test.json
 
 #submit training job
-gcloud ml-engine jobs submit training $JOB_NAME --job-dir $MODEL_DIR --runtime-version 1.8 --scale-tier=$TIER --module-name $MODEL_NAME --package-path $PACKAGE_PATH -- --train-files $TRAIN_FILES --eval-files $EVAL_FILES --train-steps 1000 --eval-steps 100 --verbosity DEBUG --embedding-size 128 --dense-size 128 --l2-regularization 0.1 --l2-bias-regularization 0.05 --user-item-multiply False --learning-rate 0.0002
+gcloud ml-engine jobs submit training $JOB_NAME \
+    --job-dir $MODEL_DIR \
+    --runtime-version 1.8 \
+    --scale-tier=$TIER \
+    --module-name $MODEL_NAME \
+    --package-path $PACKAGE_PATH \
+    -- \
+    --train-files $TRAIN_FILES \
+    --eval-files $EVAL_FILES \
+    --train-steps 1000 \
+    --eval-steps 100 \
+    --verbosity DEBUG \
+    --embedding-size 128 \
+    --dense-size 128 \
+    --l2-regularization 0.1 \
+    --l2-bias-regularization 0.05 \
+    --user-item-multiply False \
+    --learning-rate 0.0002
+    
 gcloud ml-engine jobs stream-logs $JOB_NAME
 
 # notes:
