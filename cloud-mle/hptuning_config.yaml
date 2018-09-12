@@ -1,0 +1,37 @@
+trainingInput:
+  hyperparameters:
+    goal: MINIMIZE
+    hyperparameterMetricTag: rmse
+    maxTrials: 5 #40
+    maxParallelTrials: 5
+    algorithm: RANDOM_SEARCH
+    params:
+      - parameterName: learning-rate
+        type: DOUBLE
+        minValue: 0.00001
+        maxValue: 0.005
+        scaleType: UNIT_LOG_SCALE
+      - parameterName: embedding-size
+        type: INTEGER
+        minValue: 20
+        maxValue: 300
+        scaleType: UNIT_LINEAR_SCALE
+      - parameterName: dense-size
+        type: INTEGER
+        minValue: 50
+        maxValue: 300
+        scaleType: UNIT_LINEAR_SCALE
+      - parameterName: user-item-multiply
+        type: INTEGER
+        minValue: 0
+        maxValue: 1
+      - parameterName: l2-regularization
+        type: DOUBLE
+        minValue: 0.01
+        maxValue: 0.5
+        scaleType: UNIT_LOG_SCALE
+      - parameterName: l2-bias-regularization
+        type: DOUBLE
+        minValue: 0.001
+        maxValue: 0.5
+        scaleType: UNIT_LOG_SCALE
