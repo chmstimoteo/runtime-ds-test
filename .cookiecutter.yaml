@@ -1,0 +1,7 @@
+default_context:
+    project_title: "Runtime Data Science using fabric code and cookiecutter"
+    project_name: "runtime-ds-test"
+    description: "Runtime Data Science using fabric code and cookiecutter"
+    gcp_project: "eds-sandbox-186722"
+    gcp_region: "us-east1"
+    gcp_zone: "us-east1-d"

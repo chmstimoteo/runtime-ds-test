@@ -1,0 +1,35 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+    labels:
+        run: {{.Values.serviceName}}
+    name: {{.Values.serviceName}}
+    namespace: {{.Values.namespace}}
+
+spec:
+    replicas: {{.Values.apiReplicas | default 1}}
+    selector:
+        matchLabels:
+            run: {{.Values.serviceName}}
+    template:
+        metadata:
+            labels:
+                run: {{.Values.serviceName}}
+        spec:
+            containers:
+            - image: {{printf "gcr.io/%s/%s-%s:%s" .Values.gcpProjectId .Values.projectName .Values.serviceName .Values.tag}}
+              name: {{.Values.serviceName}}
+              ports:
+              - containerPort: {{.Values.containerPort}}
+              env:
+              - name: NAMESPACE
+                value: {{.Values.namespace}}
+              - name: FLASK_ENV
+                value: "PRODUCTION"
+              - name: REDIS_HOST
+                value: {{.Values.redisHost | default "10.0.0.3" | quote}}
+              - name: REDIS_PORT
+                value: {{.Values.redisPort | default "6379" | quote}}
+

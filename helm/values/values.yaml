@@ -1,0 +1,15 @@
+---
+gcpProjectId: eds-sandbox-186722
+gcpProjectZone: us-east1-d
+modelStoragePath: "/var/model-storage"
+modelStoragePersistentDisk: runtime-ds-test-model-storage-ssd
+projectName: runtime-ds-test
+projectTitle: Runtime Data Science using fabric code and cookiecutter
+redisHost: TBD
+redisPort: TBD
+services:
+  backend:
+    externalPort: '5000'
+    templates:
+    - deployment
+    - service

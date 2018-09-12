@@ -1,0 +1,6 @@
+---
+serviceName: backend
+tag: latest
+containerPort: 5000
+apiReplicas: 1
+mountModelStorage: true

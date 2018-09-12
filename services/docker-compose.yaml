@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+    backend:
+        build: ./backend/
+        image: backend
+        ports:
+            - "5000:5000"
+        command: python src/main.py
+        volumes:
+            - ./backend/:/app
+        environment:
+            - FLASK_ENV=development

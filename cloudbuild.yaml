@@ -1,0 +1,4 @@
+steps:
+    # Test, type check, and lint all services
+    - name: "gcr.io/$PROJECT_ID/apulu-runtime-builder"
+      args: ["make", "ci"]

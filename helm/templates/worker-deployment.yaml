@@ -1,0 +1,47 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+    labels:
+        run: {{.Values.workerName}}
+    name: {{.Values.workerName}}
+    namespace: {{.Values.namespace}}
+
+spec:
+    replicas: {{.Values.workerReplicas | default 1}}
+    selector:
+        matchLabels:
+            run: {{.Values.workerName}}
+    template:
+        metadata:
+            labels:
+                run: {{.Values.workerName}}
+        spec:
+            containers:
+            - image: {{printf "gcr.io/%s/%s-%s:%s" .Values.gcpProjectId .Values.projectName .Values.serviceName .Values.tag}}
+              name: {{.Values.workerName}}
+              command: ["python", "src/worker.py"]
+              env:
+              - name: NAMESPACE
+                value: {{.Values.namespace}}
+              - name: REDIS_HOST
+                value: {{.Values.redisHost | default "10.0.0.3" | quote}}
+              - name: REDIS_PORT
+                value: {{.Values.redisPort | default "6379" | quote}}
+              - name: MODEL_STORAGE_LOCATION
+                value: {{.Values.modelStoragePath | quote}}
+              {{- if .Values.mountModelStorage}}
+              volumeMounts:
+              - name: model-storage-volume
+                mountPath: {{.Values.modelStoragePath | quote}}
+              {{- end}}
+            {{- if .Values.mountModelStorage}}
+            volumes:
+            - name: model-storage-volume
+              gcePersistentDisk:
+                  pdName: {{.Values.modelStoragePersistentDisk}}
+                  fsType: ext4
+                  readOnly: true
+            {{- end}}
+

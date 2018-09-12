@@ -1,0 +1,6 @@
+---
+namespace: development
+services:
+  backend:
+    host: TBD
+    type: LoadBalancer

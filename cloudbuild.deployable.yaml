@@ -1,0 +1,25 @@
+steps:
+    # Test, type check, and lint all services
+    - name: "gcr.io/$PROJECT_ID/apulu-runtime-builder"
+      args: ["make", "ci"]
+
+    # Build, tag, and push the Docker containers
+    - name: "gcr.io/$PROJECT_ID/apulu-runtime-builder"
+      entrypoint: "bash"
+      args:
+        - -c
+        - |
+          make build-push-images TAG=latest SERVICE=all
+          make build-push-images TAG=${SHORT_SHA} SERVICE=all
+
+    # Generate the Kubernetes manifests from the Helm templates
+    - name: "gcr.io/$PROJECT_ID/apulu-runtime-builder"
+      args: ["make", "generate-manifests", "TAG=${SHORT_SHA}", "NAMESPACE=${_NAMESPACE}"]
+
+    # Deploy the manifests to the Kubernetes cluster
+    - name: "gcr.io/$PROJECT_ID/apulu-runtime-builder"
+      args: ["make", "authenticate-cluster", "deploy-manifests"]
+
+substitutions:
+    _NAMESPACE: development     # Default namespace; overriden by Container Builder trigger configuration
+timeout: 1800s                  # Installing Python data science libraries can take a while

@@ -1,0 +1,6 @@
+---
+namespace: production
+services:
+  backend:
+    host: TBD
+    type: LoadBalancer
